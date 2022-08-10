@@ -15,7 +15,7 @@ import store from "./pages/components/store"
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Routes >
         <Route path="/student" element={<Students />} />
         <Route path="/Reset" element={<Reset />} />
