@@ -1,7 +1,7 @@
 {
   "name": "portfolio",
   "version": "0.1.0",
-  "homepage": "https://chauhdri.github.io/react-gh-pages",
+  "homepage": "https://chauhdri.github.io/LMS-Ababeel",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.7.0",
