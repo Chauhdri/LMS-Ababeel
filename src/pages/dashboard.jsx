@@ -19,40 +19,42 @@ export default function Dashboard(props) {
     const [permission, setPermission] = useState(false);
     const navigate = useNavigate();
 
-    const fetchPermission = async () => { userData["Role"][props.role]&& setPermission(true);}
+    // const fetchPermission = async () => { userData["Role"][props.role]&& setPermission(true);}
 
 
 
     useEffect(() => {
         if (loading) return;
-        if (!user) return navigate("/");
-        fetchUserEmail();
+        // if (!user) return navigate("/");
+        // fetchUserEmail();
     }, [user, loading]);
 
     //fetching data from auth
-    const fetchUserEmail = async () => {
-        try {
-            const q = query(collection(db, "users"), where("uid", "==", user?.uid));
-            const doc = await getDocs(q);
-            const data = doc.docs[0].data();
-            setEmail(data.email);
-            emailVerifying(data.email);
-        } catch (err) {
-            console.error(err);
-            alert("An error occured while fetching user data");
-        }
-    };
+    // const fetchUserEmail = async () => {
+    //     try {
+    //         const q = query(collection(db, "users"), where("uid", "==", user?.uid));
+    //         const doc = await getDocs(q);
+    //         const data = doc.docs[0].data();
+    //         setEmail(data.email);
+    //         emailVerifying(data.email);
+    //     } catch (err) {
+    //         console.error(err);
+    //         alert("An error occured while fetching user data");
+    //     }
+    // };
 
     //verifying either user data exits or not
-    const emailVerifying = (email) => {
+    // const emailVerifying = (email) => {
         
-    }
+    // }
 
 
     return (
 
         <>
-        {permission&&user&&<Students />}
+        {
+        // permission&&user&&
+        <Students />}
         
     </>
 
