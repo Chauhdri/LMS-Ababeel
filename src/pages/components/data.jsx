@@ -117,7 +117,7 @@ export const articleData = [
         visibility: true,
         title: "Live Classes",
         body: "We beleive that live interaction between students and teacher is essential to make learning more effective, more professional, our team is making sure the intrupt-free session is heldinng on for an effective results.",
-        src: "../images/1.jpg",
+        src: "./images/1.jpg",
         id: 1
     },
     {
