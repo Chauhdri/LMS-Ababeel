@@ -18,7 +18,7 @@ const article = articleData.map((value, index)=> {
         sx={{
             margin:2
         }}>
-           <AllArticles direction="row" title={value.title} body={value.body} src={value.src} />
+           <AllArticles direction="row" title={value.title} body={value.body} src={window.location + value.src} />
         </Card>
     )
     else return (
@@ -26,7 +26,7 @@ const article = articleData.map((value, index)=> {
         sx={{
             margin:2
         }}>
-            <AllArticles direction="row-reverse" title={value.title} body={value.body} src={value.src}   />
+            <AllArticles direction="row-reverse" title={value.title} body={value.body} src={window.location + value.src}   />
         </Card>
     )
 })

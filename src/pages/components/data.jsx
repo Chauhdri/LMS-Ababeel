@@ -117,35 +117,35 @@ export const articleData = [
         visibility: true,
         title: "Live Classes",
         body: "We beleive that live interaction between students and teacher is essential to make learning more effective, more professional, our team is making sure the intrupt-free session is heldinng on for an effective results.",
-        src: "./images/1.jpg",
+        src: "/images/1.jpg",
         id: 1
     },
     {
         visibility: true,
         title: "Parent Control",
         body: "Sure, it is complusory to monitor progress and get notified, how it is going on as our students are our pride and to build thier career in right direction, we need sharp eye on path.",
-        src: "../images/2.jpg",
+        src: "/images/2.jpg",
         id: 2
     },
     {
         visibility: true,
         title: "Chats with Collegues",
         body: "Ahh... discusions makes interest, discusion leads to solution. to discover treasure of success, it is important to solve math problems, physics phenomenons and chemistry's mystry. Best group best discussion and finally best solution.",
-        src: "../images/9.jpg",
+        src: "/images/9.jpg",
         id: 3
     },
     {
         visibility: true,
         title: "Communication makes easy",
         body: "World is becoming global village, to communicate persons of different countries language is the superb key... and what about to dictate machines, again language is the key... and we have both key makers.... :-)",
-        src: "../images/4.jpg",
+        src: "/images/4.jpg",
         id: 4
     },
     {
         visibility: true,
         title: "Digital Era",
         body: "We all are entering digital era making lifes easier and convenient , Sure how can we forget to make education more advacne.",
-        src: "../images/6.jpg",
+        src: "/images/6.jpg",
         id: 5
     }
 

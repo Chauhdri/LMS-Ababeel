@@ -34,7 +34,7 @@ export const LogoAndName = () => {
 
         <Grid item id="logo"  >
 
-          <Avatar variant="square" src='./ababeel-logo.png' alt="logo" sx={{ height: `2em`, width: "auto", }}>
+          <Avatar variant="square" src={window.location + '/ababeel-logo.png'} alt="logo" sx={{ height: `2em`, width: "auto", }}>
 
           </Avatar>
         </Grid>
