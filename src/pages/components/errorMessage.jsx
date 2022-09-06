@@ -9,9 +9,8 @@ const Transition = React.forwardRef(function Transition(props, ref) { return <Sl
 
 export function ErrorMsg(props) {
 
-    const [detailToggle, setDetailToggle] = React.useState(false); // to toggle dialog box
+    const [detailToggle, setDetailToggle] = React.useState(true); // to toggle dialog box
  
-
     const space = (n) => String.fromCharCode(160).repeat(n);
 
         return (
@@ -27,7 +26,7 @@ export function ErrorMsg(props) {
                 <DialogTitle align="center" ><u>{`ERROR`}</u></DialogTitle>
                 <DialogContent>
                     <DialogContentText id="Teacher">
-                        {`Message: ${space(2)} ${props.messagae}`}
+                        {`Message: ${space(2)} ${props.message}`}
                     </DialogContentText>
                     
                 </DialogContent>

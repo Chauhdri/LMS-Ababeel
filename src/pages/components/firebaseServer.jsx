@@ -3,12 +3,14 @@
 import { initializeApp ,} from "firebase/app";
 import { GoogleAuthProvider, getAuth, signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail, signOut, } from "firebase/auth";
 import { getFirestore, query, getDocs, collection, where, addDoc, } from "firebase/firestore";
-// import { ErrorMsg } from "./errorMessage";
+import { ErrorMsg } from "./errorMessage";
 // import fetchProvidersForEmail from "firebase";
 import React from "react";
-import {  Slide, DialogActions, DialogTitle, DialogContent, DialogContentText, Dialog,  Button, TableHead, TableBody, TableRow, TableCell } from "@mui/material";
+import ReactDOM from 'react-dom';
+import {  Slide, DialogActions, DialogTitle, DialogContent, DialogContentText, Dialog,  Button, TableHead, TableBody, TableRow, TableCell, Grid } from "@mui/material";
 // import {  nextLectureDay, dateFormat } from "./countDown";
 import DoneAllSharpIcon from '@mui/icons-material/DoneAllSharp';
+import { useNavigate } from "react-router-dom";
 
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -31,15 +33,19 @@ const firebaseConfig = {
   measurementId: "G-2J1C4PW4QB"
 };
 
+// const navigate = useNavigate();
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 const googleProvider = new GoogleAuthProvider();
 
-
+// function ErrorDetail (err) {
+  
+// }
 
 const signInWithGoogle = async () => {
+  document.createElement("div").setAttribute("id","msg")
   try {
     const res = await signInWithPopup(auth, googleProvider);
     const user = res.user;
@@ -55,13 +61,25 @@ const signInWithGoogle = async () => {
     }
   } catch (err) {
     console.error(err);
-    alert(err.message);
+    ReactDOM.render(
+      <h1>Hello</h1>
+    ,document.getElementById("msg")
+    );
+    return "error";
   }
+ 
 };
 
 const logInWithEmailAndPassword = async (email, password) => {
   try {
-    await signInWithEmailAndPassword(auth, email, password);
+    // alert("logging............")
+    const res = await signInWithEmailAndPassword(auth, email, password);
+    const user = res.user;
+    const q = query(collection(db, "users"), where("uid", "==", user.uid));
+    const docs = await getDocs(q);
+    
+    
+
   } catch (err) {
     console.error(err);
      <ErrorMsg message={err.message}/>;
@@ -127,38 +145,38 @@ return (alert(email))
 
 const Transition = React.forwardRef(function Transition(props, ref) { return <Slide direction="up" ref={ref} {...props} />; });
 
-function ErrorMsg(props) {
+// function ErrorMsg(props) {
 
-    const [detailToggle, setDetailToggle] = React.useState(true); // to toggle dialog box
+//     const [detailToggle, setDetailToggle] = React.useState(true); // to toggle dialog box
  
 
-    const space = (n) => String.fromCharCode(160).repeat(n);
+//     const space = (n) => String.fromCharCode(160).repeat(n);
 
-        return (
-            <Dialog
-                open={detailToggle}
-                TransitionComponent={Transition}
-                scroll="paper"
-                keepMounted
-                onClose={() => setDetailToggle(!detailToggle)}
-                aria-describedby="alert-dialog-cards-description"
+//         return (
+//             <Dialog
+//                 open={detailToggle}
+//                 TransitionComponent={Transition}
+//                 scroll="paper"
+//                 keepMounted
+//                 onClose={() => setDetailToggle(!detailToggle)}
+//                 aria-describedby="alert-dialog-cards-description"
                 
-            >
-                <DialogTitle align="center" ><u>{`ERROR`}</u></DialogTitle>
-                <DialogContent>
-                    <DialogContentText id="Teacher">
-                        {`Message: ${space(2)} ${props.messagae}`}
-                    </DialogContentText>
+//             >
+//                 <DialogTitle align="center" ><u>{`ERROR`}</u></DialogTitle>
+//                 <DialogContent>
+//                     <DialogContentText id="Teacher">
+//                         {`Message: ${space(2)} ${props.messagae}`}
+//                     </DialogContentText>
                     
-                </DialogContent>
-                <DialogActions>
-                    <Button fullWidth variant="outlined" startIcon={<DoneAllSharpIcon />} color="info" onClick={() => setDetailToggle(!detailToggle)}>Acknowledged</Button>
-                </DialogActions>
-            </Dialog>
+//                 </DialogContent>
+//                 <DialogActions>
+//                     <Button fullWidth variant="outlined" startIcon={<DoneAllSharpIcon />} color="info" onClick={() => setDetailToggle(!detailToggle)}>Acknowledged</Button>
+//                 </DialogActions>
+//             </Dialog>
 
 
-        )
-    }
+//         )
+//     }
 
 
 export {

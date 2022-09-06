@@ -20,6 +20,9 @@ import Teacher from '../teacheer';
 import CheckCircleSharpIcon from '@mui/icons-material/CheckCircleSharp';
 import Dashboard from '../dashboard';
 
+import { ErrorMsg } from './errorMessage';
+// import signInWithGoogle from "./firebaseServer.jsx"
+
 //import "./Login.css";
 // import "./formsTheme.css";
 // import loginHandler from './handler';
@@ -30,6 +33,9 @@ export function LoginSection() {
 
   let [h, setH] = useState(window.innerHeight)
   window.addEventListener('resize', function (event) { setH(window.innerHeight); }, true);
+
+  const [err, setErr] = React.useState(false); // to toggle dialog box
+ 
 
   //variables for login id
   const [login, setLogin] = useState({ LoginID: "", password: "" });
@@ -57,18 +63,35 @@ export function LoginSection() {
     }
   }, [user, loading]);
 
-  function loginHandler() {
-    logInWithEmailAndPassword(email, password)
-    // for (let i = 0; i <q.length; i++)
-    // if(q[i].checked) {
-    //   navigate("/"+dashboards[i])
+  // function loginHandler() {
+  //   logInWithEmailAndPassword(email, password)
+  //   for (let i = 0; i <q.length; i++)
+  //   if(q[i].checked) {
+  //     navigate("/"+dashboards[i])
+  //   }
+
+    // if(x==1) {
+    //   const xyz=signInWithGoogle()
     // }
-    return (
-      alert("job done")
 
-    )
-  }
 
+
+  //   return (
+  //     alert("job done")
+
+  //   )
+  // }
+ function xyz() {
+  // const ans=
+  console.log("xyz reached here.")
+  return (
+  <Grid>
+    {/* <ErrorMsg message={signInWithGoogle()}/> */}
+  {/* alert("Go ahead"); */}
+  </Grid>
+  
+  )
+ }
 
   const logo = [
     "./icons/professor.png",
@@ -78,11 +101,11 @@ export function LoginSection() {
 
 
 
-
   return (
 
     <Grid container direction="column"
       sx={{ height: h, alignItems: "center", justifyContent: "center", }}>
+     {/* <ErrorMsg message={"My name is Ababeel"}/> */}
 
       <Card
         sx={{ height: "auto", width: "20em", padding: 2, backgroundColor: "rgba(12,9,10,0.1)", }}>
@@ -158,7 +181,7 @@ export function LoginSection() {
           <Grid item
             sx={{ margin: 0, width: "100%", }} >
 
-            <Button type="submit" value="Login" variant='contained' onClick={() => loginHandler()}
+            <Button type="submit" value="Login" variant='contained' onClick={ ()=>logInWithEmailAndPassword(email, password)}
               sx={{ margin: 0, width: "100%", }} >
               Let me In...
             </Button>
@@ -182,7 +205,7 @@ export function LoginSection() {
           <Grid item
             sx={{ margin: 0, width: "100%", textAlign: "center" }} >
 
-            <Button variant='outlined' color='secondary' href="/Register"
+            <Button variant='outlined' color='secondary' href="Register"
               sx={{ margin: 0, width: "100%", }}>
               Create an Account
             </Button>
@@ -192,7 +215,7 @@ export function LoginSection() {
           <Grid item
             sx={{ margin: 0, width: "100%", textAlign: "center" }} >
 
-            <Button variant='outlined' color='error' href="/reset"
+            <Button variant='outlined' color='error' href="reset"
               sx={{ margin: 0, width: "100%", }}>
               Forget Password
             </Button>
