@@ -10,7 +10,7 @@ import { colorManager } from './components/data';
 import { LogoAndName } from './components/logoAndName';
 import { BottomBar } from './components/bottomBar'
 
-export default function Students() {
+export default function Teacher() {
 
   let [w, setW] = React.useState(window.innerWidth)
   window.addEventListener('resize', function (event) { setW(window.innerWidth); }, true);
@@ -50,7 +50,7 @@ export default function Students() {
     <Box sx={{ backgroundImage: "url('./images/1 (10).jpg')", backgroundSize: w }}>
       <LogoAndName />
       
-      <StudentNotices />
+     <h1>Hello I am Teacher.</h1>
       <Button style={{
         marginBottom:220
       }}

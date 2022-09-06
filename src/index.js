@@ -3,7 +3,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import reportWebVitals from './reportWebVitals';
-import Students from "./pages/students.jsx";
+import Student from "./pages/student.jsx";
+import Parent from "./pages/parent";
+import Teacher from "./pages/teacher"
 import Ababeel from './pages/ababeel.jsx';
 import Reset from "./pages/components/Reset";
 import Register from "./pages/components/Register";
@@ -17,7 +19,9 @@ ReactDOM.render(
     <Provider store={store}>
     <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Routes >
-        <Route path="/student" element={<Students />} />
+        <Route path="/student" element={<Student />} />
+        <Route path="/parent" element={<Parent />} />
+        <Route path="/teacher" element={<Teacher />} />
         <Route path="/Reset" element={<Reset />} />
         <Route path="/Register" element={<Register />} />
         <Route path="/login" element={<LoginSection />} />

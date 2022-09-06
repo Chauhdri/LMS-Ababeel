@@ -13,19 +13,14 @@ import ListItemDecorator from '@mui/joy/ListItemDecorator';
 import Radio, { radioClasses } from '@mui/joy/Radio';
 import Sheet from '@mui/joy/Sheet';
 import RadioGroup from '@mui/joy/RadioGroup';
-import Student from '../students';
+import Student from '../student';
 import Parent from '../parent';
-import Teacher from '../teacheer';
+import Teacher from '../teacher';
 
 import CheckCircleSharpIcon from '@mui/icons-material/CheckCircleSharp';
 import Dashboard from '../dashboard';
 
 import { ErrorMsg } from './errorMessage';
-// import signInWithGoogle from "./firebaseServer.jsx"
-
-//import "./Login.css";
-// import "./formsTheme.css";
-// import loginHandler from './handler';
 
 
 export function LoginSection() {
@@ -43,7 +38,7 @@ export function LoginSection() {
   const [password, setPassword] = useState("");
   const [user, loading, error] = useAuthState(auth);
   const navigate = useNavigate();
-  const dashboards = ["Teacher","Parent","Student"]
+  const dashboards = ["/teacher","/parent","/student"]
 
   const q = document.getElementsByName("loggingBody");
 
@@ -55,43 +50,13 @@ export function LoginSection() {
     if (user) {
       for (let i = 0; i < q.length; i++)
         if (q[i].checked) {
-          <Dashboard role={i}/> // 0:Teacher, 1:Parent, 2:Student
+         navigate(dashboards[i]) // 0:Teacher, 1:Parent, 2:Student
         }
           
-        else (alert("At least select one role (i.e. Teacher) "))
-      navigate("/student")
     }
   }, [user, loading]);
 
-  // function loginHandler() {
-  //   logInWithEmailAndPassword(email, password)
-  //   for (let i = 0; i <q.length; i++)
-  //   if(q[i].checked) {
-  //     navigate("/"+dashboards[i])
-  //   }
-
-    // if(x==1) {
-    //   const xyz=signInWithGoogle()
-    // }
-
-
-
-  //   return (
-  //     alert("job done")
-
-  //   )
-  // }
- function xyz() {
-  // const ans=
-  console.log("xyz reached here.")
-  return (
-  <Grid>
-    {/* <ErrorMsg message={signInWithGoogle()}/> */}
-  {/* alert("Go ahead"); */}
-  </Grid>
   
-  )
- }
 
   const logo = [
     "./icons/professor.png",
@@ -181,7 +146,7 @@ export function LoginSection() {
           <Grid item
             sx={{ margin: 0, width: "100%", }} >
 
-            <Button type="submit" value="Login" variant='contained' onClick={ ()=>logInWithEmailAndPassword(email, password)}
+            <Button value="Login" variant='contained' onClick={ ()=>logInWithEmailAndPassword(email, password)}
               sx={{ margin: 0, width: "100%", }} >
               Let me In...
             </Button>

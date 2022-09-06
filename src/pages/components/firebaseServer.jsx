@@ -3,14 +3,8 @@
 import { initializeApp ,} from "firebase/app";
 import { GoogleAuthProvider, getAuth, signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail, signOut, } from "firebase/auth";
 import { getFirestore, query, getDocs, collection, where, addDoc, } from "firebase/firestore";
-import { ErrorMsg } from "./errorMessage";
-// import fetchProvidersForEmail from "firebase";
 import React from "react";
 import ReactDOM from 'react-dom';
-import {  Slide, DialogActions, DialogTitle, DialogContent, DialogContentText, Dialog,  Button, TableHead, TableBody, TableRow, TableCell, Grid } from "@mui/material";
-// import {  nextLectureDay, dateFormat } from "./countDown";
-import DoneAllSharpIcon from '@mui/icons-material/DoneAllSharp';
-import { useNavigate } from "react-router-dom";
 
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -72,20 +66,12 @@ const signInWithGoogle = async () => {
 
 const logInWithEmailAndPassword = async (email, password) => {
   try {
-    // alert("logging............")
-    const res = await signInWithEmailAndPassword(auth, email, password);
-    const user = res.user;
-    const q = query(collection(db, "users"), where("uid", "==", user.uid));
-    const docs = await getDocs(q);
-    
-    
-
+    await signInWithEmailAndPassword(auth, email, password);
   } catch (err) {
     console.error(err);
-     <ErrorMsg message={err.message}/>;
+    alert(err.message);
   }
 };
-
 
 const registerWithEmailAndPassword = async (name, email, password) => {
   try {
@@ -102,8 +88,6 @@ const registerWithEmailAndPassword = async (name, email, password) => {
     alert(err.message);
   }
 };
-
-
 
 const sendPasswordReset = async (email) => {
   try {
@@ -128,55 +112,7 @@ const logout = () => {
 //     }
 //   }
 // }
-const emailChecker =  (email)=>{
-  email="muhammadtalha0247@gmail.com";
-    //  let presence=false;
-    var user=auth().currentUser;
-    db.collection("users").where(email,"==",user.email).get()
-     const q=query(collection(db,"users"), where("email","===",email))
-    //  const me= await getDocs(q);
-    //  me.forEach((em=>console.log(em.id,"=>",doc.data())))
-    //  if(q===!undefined)
-    //  presence=!presence;
-    //  console.log(presence)
-     console.log(q)
-return (alert(email))
-}
 
-const Transition = React.forwardRef(function Transition(props, ref) { return <Slide direction="up" ref={ref} {...props} />; });
-
-// function ErrorMsg(props) {
-
-//     const [detailToggle, setDetailToggle] = React.useState(true); // to toggle dialog box
- 
-
-//     const space = (n) => String.fromCharCode(160).repeat(n);
-
-//         return (
-//             <Dialog
-//                 open={detailToggle}
-//                 TransitionComponent={Transition}
-//                 scroll="paper"
-//                 keepMounted
-//                 onClose={() => setDetailToggle(!detailToggle)}
-//                 aria-describedby="alert-dialog-cards-description"
-                
-//             >
-//                 <DialogTitle align="center" ><u>{`ERROR`}</u></DialogTitle>
-//                 <DialogContent>
-//                     <DialogContentText id="Teacher">
-//                         {`Message: ${space(2)} ${props.messagae}`}
-//                     </DialogContentText>
-                    
-//                 </DialogContent>
-//                 <DialogActions>
-//                     <Button fullWidth variant="outlined" startIcon={<DoneAllSharpIcon />} color="info" onClick={() => setDetailToggle(!detailToggle)}>Acknowledged</Button>
-//                 </DialogActions>
-//             </Dialog>
-
-
-//         )
-//     }
 
 
 export {
@@ -187,5 +123,4 @@ export {
   registerWithEmailAndPassword,
   sendPasswordReset,
   logout,
-  emailChecker
 };

@@ -3,7 +3,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { query, collection, getDocs, where } from "firebase/firestore";
 import { auth } from "./components/firebaseServer";
 import { useNavigate } from 'react-router-dom';
-import Students from './students';
+import Students from './student';
 
 
 
@@ -25,7 +25,7 @@ export default function Dashboard(props) {
 
     useEffect(() => {
         if (loading) return;
-        // if (!user) return navigate("/");
+        if (!user) return navigate("/");
         // fetchUserEmail();
     }, [user, loading]);
 

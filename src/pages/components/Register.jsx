@@ -128,15 +128,15 @@ function Register() {
           </Grid>
 
           {/* Retype Password */}
-          <Grid item
+          {/* <Grid item
             sx={{ margin: 0, width: "100%", marginBottom: "1em" }} >
 
             <Input required type="password" variant="standard" name="retypedpassword" placeholder="Retype Password" id="password" value={rePassword} onChange={(e) => setRePassword(e.target.value)}
               sx={{ margin: 0, width: "100%", }} />
 
-          </Grid>
+          </Grid> */}
 
-          <Grid item
+          {/* <Grid item
             sx={{ margin: 0, width: "100%", marginBottom: "1em" }} >
 
             <PasswordChecklist rules={["minLength", "number", "letter", "match", "nonEmpty"]}
@@ -148,11 +148,11 @@ function Register() {
                 match: "Password and Retype-password must be same."
               }}
             />
-          </Grid>
+          </Grid> */}
 
           <Grid item
             sx={{ margin: 0, width: "100%", }} >
-            <Button type="submit" value="Login" variant='contained' onClck={() => register()}
+            <Button value="Login" variant='contained' onClick={() => register()}
               sx={{ margin: 0, width: "100%", }}>
               Register
             </Button>

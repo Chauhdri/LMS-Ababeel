@@ -10,7 +10,7 @@ import { colorManager } from './components/data';
 import { LogoAndName } from './components/logoAndName';
 import { BottomBar } from './components/bottomBar'
 
-export default function Students() {
+export default function Student() {
 
   let [w, setW] = React.useState(window.innerWidth)
   window.addEventListener('resize', function (event) { setW(window.innerWidth); }, true);
