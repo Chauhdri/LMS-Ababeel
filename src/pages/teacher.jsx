@@ -8,7 +8,8 @@ import { Grid, Box, Button } from "@mui/material";
 import StudentNotices from './components/studentNotices';
 import { colorManager } from './components/data';
 import { LogoAndName } from './components/logoAndName';
-import { BottomBar } from './components/bottomBar'
+import { BottomBar } from './components/bottomBar';
+import { Loading } from './components/loading';
 
 export default function Teacher() {
 
@@ -29,23 +30,9 @@ export default function Teacher() {
       alert("An error occured while fetching user data");
     } 
   };
-  useEffect(() => {
-    if (loading) return;
-    if (!user) return navigate("/");
-    fetchUserName();
-  }, [user, loading]); 
-
-  // return (
-  //   <div className="dashboard">
-  //      <div className="dashboard__container">
-  //       Logged in as
-  //        <div>{name}</div>
-  //        <div>{user?.email}</div>
-
-  //      </div>
-  //    </div>
-  // );
-
+ 
+ 
+ if(user)
   return (
     <Box sx={{ backgroundImage: "url('./images/1 (10).jpg')", backgroundSize: w }}>
       <LogoAndName />
@@ -61,4 +48,5 @@ export default function Teacher() {
      
     </Box>
   )
+  else return <Loading />;
 }

@@ -9,6 +9,7 @@ import StudentNotices from './components/studentNotices';
 import { colorManager } from './components/data';
 import { LogoAndName } from './components/logoAndName';
 import { BottomBar } from './components/bottomBar'
+import { Loading } from './components/loading';
 
 export default function Student() {
 
@@ -29,23 +30,8 @@ export default function Student() {
       alert("An error occured while fetching user data");
     } 
   };
-  useEffect(() => {
-    if (loading) return;
-    if (!user) return navigate("/");
-    fetchUserName();
-  }, [user, loading]); 
-
-  // return (
-  //   <div className="dashboard">
-  //      <div className="dashboard__container">
-  //       Logged in as
-  //        <div>{name}</div>
-  //        <div>{user?.email}</div>
-
-  //      </div>
-  //    </div>
-  // );
-
+ 
+ if(user)
   return (
     <Box sx={{ backgroundImage: "url('./images/1 (10).jpg')", backgroundSize: w }}>
       <LogoAndName />
@@ -61,4 +47,5 @@ export default function Student() {
      
     </Box>
   )
+ else return <Loading />;
 }

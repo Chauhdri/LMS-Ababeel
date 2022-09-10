@@ -8,6 +8,8 @@ import FloatingButtons from './components/floatingButttons';
 import { LogoAndName } from './components/logoAndName';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux/es/exports';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth, logout } from './components/firebaseServer';
 
 
 
@@ -18,7 +20,7 @@ export default function Ababeel() {
     let [w, setW] = React.useState(window.innerWidth)
     window.addEventListener('resize', function (event) { setW(window.innerWidth); }, true);
     const navigate = useNavigate();
-    const loginState = useSelector((state)=>state.loginState.state)
+    const [user] = useAuthState(auth);
 
     return (
 
@@ -27,26 +29,26 @@ export default function Ababeel() {
                 {Nav(w)}
             </Grid> */}
             <LogoAndName />
-            <LoginSection/>
+            {/* <LoginSection/> */}
             <FloatingButtons data="0" bottom="2em" />
             <FloatingButtons data="1" bottom="6em" />
 
             <Articles />
 
-            {loginState
-            ?
-            <Button onClick={() => navigate("./login")}>
-                <Typography>
-                    SIGN OUT
-                </Typography>
-            </Button>
-            :
-            <Button onClick={() => navigate("./login")}>
-                <Typography>
-                    SIGN IN
-                </Typography>
-            </Button>
-}
+            {user
+                ?
+                (<Button onClick={logout}>
+                    <Typography>
+                        SIGN OUT
+                    </Typography>
+                </Button>)
+                :
+                (<Button onClick={() => navigate("./login")}>
+                    <Typography>
+                        SIGN IN
+                    </Typography>
+                </Button>)
+            }
         </>
 
 

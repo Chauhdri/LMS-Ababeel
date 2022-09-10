@@ -2,17 +2,17 @@ import { createSlice } from "@reduxjs/toolkit";
 import { useAuthState } from "react-firebase-hooks/auth";
 import {auth} from "./firebaseServer"
 
-function Authentication (){
-    const [user] = useAuthState(auth);
-return user;
-}
+
+
+    
+
 export const loginState = createSlice({
 
 
     name:"loginState",
-    initialState:{state:false},
+    initialState:{state:"true"},
     reducers:{
-        state:()=>state=Authentication()
+        state:()=>state="false"
 
 
 
