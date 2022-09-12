@@ -4,7 +4,7 @@ import { autocompleteClasses, Button, Grid, Input, Typography } from '@mui/mater
 //------------------
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { auth, logInWithEmailAndPassword, signInWithGoogle } from "./firebaseServer";
+import { auth, LogInWithEmailAndPassword, signInWithGoogle } from "./firebaseServer";
 import { useAuthState } from "react-firebase-hooks/auth";
 //import "./Login.css";
 
@@ -88,7 +88,7 @@ export function LoginSection() {
           <Button
             type="submit"
             value="Login"
-            onClick={() => logInWithEmailAndPassword(email, password)}
+            onClick={() => LogInWithEmailAndPassword(email, password)}
           >Login
           </Button>
           |

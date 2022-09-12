@@ -3,6 +3,9 @@ import React from "react";
 import {  Slide, DialogActions, DialogTitle, DialogContent, DialogContentText, Dialog,  Button, TableHead, TableBody, TableRow, TableCell } from "@mui/material";
 // import {  nextLectureDay, dateFormat } from "./countDown";
 import DoneAllSharpIcon from '@mui/icons-material/DoneAllSharp';
+import { useSelector,useDispatch } from "react-redux";
+
+import { visibility } from "./reduxSlices";
 
 
 const Transition = React.forwardRef(function Transition(props, ref) { return <Slide direction="up" ref={ref} {...props} />; });
@@ -10,16 +13,18 @@ const Transition = React.forwardRef(function Transition(props, ref) { return <Sl
 export function ErrorMsg(props) {
 
     const [detailToggle, setDetailToggle] = React.useState(true); // to toggle dialog box
- 
+    const visi=useSelector(state=>state.errVisible.visibility);
+    console.log(visi)
     const space = (n) => String.fromCharCode(160).repeat(n);
+    const dispatch=useDispatch()
 
         return (
             <Dialog
-                open={detailToggle}
+                open={visi}
                 TransitionComponent={Transition}
                 scroll="paper"
                 keepMounted
-                onClose={() => setDetailToggle(!detailToggle)}
+                onClose={() => dispatch(visibility())}
                 aria-describedby="alert-dialog-cards-description"
                 
             >
@@ -31,7 +36,7 @@ export function ErrorMsg(props) {
                     
                 </DialogContent>
                 <DialogActions>
-                    <Button fullWidth variant="outlined" startIcon={<DoneAllSharpIcon />} color="info" onClick={() => setDetailToggle(!detailToggle)}>Acknowledged</Button>
+                    <Button fullWidth variant="outlined" startIcon={<DoneAllSharpIcon />} color="info" onClick={() => dispatch(visibility())}>Acknowledged</Button>
                 </DialogActions>
             </Dialog>
 

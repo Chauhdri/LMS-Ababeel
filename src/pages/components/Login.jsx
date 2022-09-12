@@ -4,7 +4,7 @@ import {
   Grid, Input, Typography, Avatar
 } from '@mui/material';
 import { useNavigate } from "react-router-dom";
-import { auth, logInWithEmailAndPassword, signInWithGoogle } from "./firebaseServer";
+import { auth, LogInWithEmailAndPassword, signInWithGoogle } from "./firebaseServer";
 import { useAuthState } from "react-firebase-hooks/auth";
 import React, { useEffect, useState } from "react";
 import List from '@mui/joy/List';
@@ -70,7 +70,7 @@ export function LoginSection() {
 
     <Grid container direction="column"
       sx={{ height: h, alignItems: "center", justifyContent: "center", }}>
-     {/* <ErrorMsg message={"My name is Ababeel"}/> */}
+     <ErrorMsg message={"My name is Ababeel"}/>
 
       <Card
         sx={{ height: "auto", width: "20em", padding: 2, backgroundColor: "rgba(12,9,10,0.1)", }}>
@@ -146,7 +146,7 @@ export function LoginSection() {
           <Grid item
             sx={{ margin: 0, width: "100%", }} >
 
-            <Button value="Login" variant='contained' onClick={ ()=>logInWithEmailAndPassword(email, password)}
+            <Button value="Login" variant='contained' onClick={ ()=>LogInWithEmailAndPassword(email, password)}
               sx={{ margin: 0, width: "100%", }} >
               Let me In...
             </Button>

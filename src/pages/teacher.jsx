@@ -10,6 +10,8 @@ import { colorManager } from './components/data';
 import { LogoAndName } from './components/logoAndName';
 import { BottomBar } from './components/bottomBar';
 import { Loading } from './components/loading';
+import { DetailFn } from './components/detailDialogBox';
+import { ErrorMsg } from './components/errorMessage';
 
 export default function Teacher() {
 
@@ -46,6 +48,7 @@ export default function Teacher() {
       </Button>
       <BottomBar name={name} email={user?.email} />
      
+    <ErrorMsg />
     </Box>
   )
   else return <Loading />;

@@ -5,8 +5,10 @@ import { GoogleAuthProvider, getAuth, signInWithPopup, signInWithEmailAndPasswor
 import { getFirestore, query, getDocs, collection, where, addDoc, } from "firebase/firestore";
 import React from "react";
 import ReactDOM from 'react-dom';
+import { useDispatch } from "react-redux";
 import { Navigate } from "react-router-dom";
-
+import { Loading } from "./loading";
+import {  visibility } from "./reduxSlices";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -59,16 +61,21 @@ const signInWithGoogle = async () => {
   }
 
 };
+function Logggg () {
+  const dispatch=useDispatch();
+  dispatch(visibility());}
 
-const logInWithEmailAndPassword = async (email, password) => {
+const LogInWithEmailAndPassword = async (email, password) => {
+
   try {
     await signInWithEmailAndPassword(auth, email, password);
   } catch (err) {
-    console.error(err);
-    alert(err.message);
+    console.log(err);
+    console.log("hell");
+    Logggg()
   }
 };
-
+// }
 const registerWithEmailAndPassword = async (name, email, password) => {
   try {
     const res = await createUserWithEmailAndPassword(auth, email, password);
@@ -116,7 +123,7 @@ export {
   auth,
   db,
   signInWithGoogle,
-  logInWithEmailAndPassword,
+  LogInWithEmailAndPassword,
   registerWithEmailAndPassword,
   sendPasswordReset,
   logout,

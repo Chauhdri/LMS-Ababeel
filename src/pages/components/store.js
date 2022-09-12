@@ -2,10 +2,10 @@
 
 
 import { configureStore } from '@reduxjs/toolkit'
-import loginStateReducer from "./reduxSlices"
+import errVisibleReducer from "./reduxSlices"
 
 export default configureStore({
   reducer: {
-    loginState:loginStateReducer
+    errVisible:errVisibleReducer
   },
 })

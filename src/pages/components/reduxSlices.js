@@ -6,19 +6,21 @@ import {auth} from "./firebaseServer"
 
     
 
-export const loginState = createSlice({
+export const errorMsg = createSlice({
 
 
-    name:"loginState",
-    initialState:{state:"true"},
+    name:"errVisible",
+    initialState:{visibility:true},
     reducers:{
-        state:()=>state="false"
+        visibility:(state)=>{state.visibility=!state.visibility
 
-
+console.log(state)
+console.log(state.visibility)
+}
 
     }
 }
 )
 
-export const {state} = loginState.actions;
-export default loginState.reducer
+export const {visibility} = errorMsg.actions;
+export default errorMsg.reducer
