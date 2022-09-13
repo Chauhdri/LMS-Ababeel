@@ -35,20 +35,7 @@ export default function Ababeel() {
 
             <Articles />
 
-            {user
-                ?
-                (<Button onClick={logout}>
-                    <Typography>
-                        SIGN OUT
-                    </Typography>
-                </Button>)
-                :
-                (<Button onClick={() => navigate("./login")}>
-                    <Typography>
-                        SIGN IN
-                    </Typography>
-                </Button>)
-            }
+           
         </>
 
 
