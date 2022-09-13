@@ -19,10 +19,10 @@ export function Loading() {
                 aria-describedby="alert-dialog-cards-description"
                 
             >
-                <DialogTitle align="center" ><u>{`LOGIN REQUIRED`}</u></DialogTitle>
+                <DialogTitle align="center" sx={{color:"red", letterSpacing:"0.2rem"}} >{`LOGIN REQUIRED!`}</DialogTitle>
                 <DialogContent>
-                    <DialogContentText id="01">
-                        {`You are not logged in yet. Login is required to access this page. `}
+                    <DialogContentText id="01" sx={{color:"black"}} >
+                        {`Login Required to access Dashboard. This message is shown, if you are not logged in or either login session is expired `}
                     </DialogContentText>
                     
                 </DialogContent>
