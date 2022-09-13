@@ -1,46 +1,45 @@
 //import { useState } from 'react';
-import {
-  Button, Card, Divider, FormControl, FormControlLabel, FormLabel,
-  Grid, Input, Typography, Avatar
-} from '@mui/material';
+import { Button, Card, Divider, FormControl, FormLabel, Grid, Input, Typography, Avatar } from '@mui/material';
 import { useNavigate } from "react-router-dom";
-import { auth, LogInWithEmailAndPassword, signInWithGoogle } from "./firebaseServer";
+import { auth, signInWithGoogle, db, EmailLogin, GoogleLogin } from "./firebaseServer";
+import { signInWithEmailAndPassword, getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { getFirestore, query, getDocs, collection, where, addDoc, } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import React, { useEffect, useState } from "react";
-import List from '@mui/joy/List';
-import ListItem from '@mui/joy/ListItem';
-import ListItemDecorator from '@mui/joy/ListItemDecorator';
+import { visibility, message, code } from "./reduxSlices";
+import { useDispatch } from "react-redux";
+import {ErrorMsg} from "./errorMessage";
 import Radio, { radioClasses } from '@mui/joy/Radio';
 import Sheet from '@mui/joy/Sheet';
 import RadioGroup from '@mui/joy/RadioGroup';
-import Student from '../student';
-import Parent from '../parent';
-import Teacher from '../teacher';
-
 import CheckCircleSharpIcon from '@mui/icons-material/CheckCircleSharp';
-import Dashboard from '../dashboard';
 
-import { ErrorMsg } from './errorMessage';
+
+
 
 
 export function LoginSection() {
 
-
   let [h, setH] = useState(window.innerHeight)
   window.addEventListener('resize', function (event) { setH(window.innerHeight); }, true);
 
-  const [err, setErr] = React.useState(false); // to toggle dialog box
- 
-
   //variables for login id
-  const [login, setLogin] = useState({ LoginID: "", password: "" });
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [user, loading, error] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
   const navigate = useNavigate();
-  const dashboards = ["/teacher","/parent","/student"]
-
-  const q = document.getElementsByName("loggingBody");
+  const dashboards = ["/teacher", "/parent", "/student"]                                                // dashboard's path to redirect on successful login.
+  const logo = ["./icons/professor.png", "./icons/parents.png", "./icons/student.png"];
+  const q = document.getElementsByName("loggingBody");                                                  //to detect which role is checked i.e teacher student or parent.
+  const dispatch = useDispatch();
+  const ghandler = GoogleLogin();                                                                       //login with google
+  const logInWithEmailAndPassword = async (email, password) => {                                        //to login 
+    try { await signInWithEmailAndPassword(auth, email, password); }
+    catch (err) {
+      dispatch(message(err.message.slice(err.message.indexOf("/") + 1, err.message.indexOf(")"))));     //to trigger and pass message to error message component.
+      dispatch(visibility());
+    }
+  };
 
   useEffect(() => {
     if (loading) {
@@ -50,19 +49,17 @@ export function LoginSection() {
     if (user) {
       for (let i = 0; i < q.length; i++)
         if (q[i].checked) {
-         navigate(dashboards[i]) // 0:Teacher, 1:Parent, 2:Student
+          navigate(dashboards[i])                                                                         // 0:Teacher, 1:Parent, 2:Student
         }
-          
+
     }
   }, [user, loading]);
 
-  
 
-  const logo = [
-    "./icons/professor.png",
-    "./icons/parents.png",
-    "./icons/student.png"
-  ]
+
+
+
+
 
 
 
@@ -70,7 +67,7 @@ export function LoginSection() {
 
     <Grid container direction="column"
       sx={{ height: h, alignItems: "center", justifyContent: "center", }}>
-     <ErrorMsg message={"My name is Ababeel"}/>
+      <ErrorMsg />
 
       <Card
         sx={{ height: "auto", width: "20em", padding: 2, backgroundColor: "rgba(12,9,10,0.1)", }}>
@@ -146,7 +143,7 @@ export function LoginSection() {
           <Grid item
             sx={{ margin: 0, width: "100%", }} >
 
-            <Button value="Login" variant='contained' onClick={ ()=>LogInWithEmailAndPassword(email, password)}
+            <Button value="Login" variant='contained' onClick={() => logInWithEmailAndPassword(email, password)}
               sx={{ margin: 0, width: "100%", }} >
               Let me In...
             </Button>
@@ -155,9 +152,9 @@ export function LoginSection() {
           {/* Signin with Google */}
           <Grid item
             sx={{ margin: 0, width: "100%", }} >
-            <Button variant='contained' onClick={signInWithGoogle}
+            <Button variant='contained' onClick={() => ghandler()}
               sx={{ margin: 0, width: "100%", }} >
-              Register with Google
+              Sign in with Google
             </Button>
           </Grid>
 

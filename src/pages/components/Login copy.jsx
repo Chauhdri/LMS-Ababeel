@@ -4,8 +4,11 @@ import { autocompleteClasses, Button, Grid, Input, Typography } from '@mui/mater
 //------------------
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { auth, LogInWithEmailAndPassword, signInWithGoogle } from "./firebaseServer";
+import { auth,   } from "./firebaseServer";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { visibility, message } from "./reduxSlices";
+import { useDispatch } from "react-redux";
 //import "./Login.css";
 
 
@@ -22,6 +25,19 @@ export function LoginSection() {
   const [password, setPassword] = useState("");
   const [user, loading, error] = useAuthState(auth);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const logInWithEmailAndPassword = async (email, password) => {
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+    } catch (err) {
+      console.log(err);
+      console.log("hell");
+      dispatch(message(err));
+      dispatch(visibility());
+
+    }
+  };
+
 
   // function changeHandler(event) {
   //   setLogin(event.target.name = 2)
@@ -88,16 +104,16 @@ export function LoginSection() {
           <Button
             type="submit"
             value="Login"
-            onClick={() => LogInWithEmailAndPassword(email, password)}
+            onClick={() => logInWithEmailAndPassword(email, password)}
           >Login
           </Button>
           |
-          <Button className="login__btn login__google"
+          {/* <Button className="login__btn login__google"
             onClick={signInWithGoogle}>
             Login with Google
           </Button>
-          </Typography>
-          <Typography>
+          </Typography> */}
+          {/* <Typography>
             <Link to="/reset">Forgot Password</Link>
           </Typography>
           <Typography>
@@ -106,8 +122,8 @@ export function LoginSection() {
           <Typography>
           <Button href="/student">
             New Account
-          </Button>
-        </Typography>
+        </Button>*/}
+        </Typography> 
       </Grid>
     </Grid>
   )

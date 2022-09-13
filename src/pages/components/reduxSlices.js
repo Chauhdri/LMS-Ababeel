@@ -1,6 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { useAuthState } from "react-firebase-hooks/auth";
-import {auth} from "./firebaseServer"
 
 
 
@@ -10,17 +8,13 @@ export const errorMsg = createSlice({
 
 
     name:"errVisible",
-    initialState:{visibility:true},
+    initialState:{visibility:false,message:"undefined"},
     reducers:{
-        visibility:(state)=>{state.visibility=!state.visibility
-
-console.log(state)
-console.log(state.visibility)
-}
-
+        visibility:(state)=>{state.visibility=!state.visibility},
+        message:(state,action)=>{state.message=(action.payload)},
     }
 }
 )
 
-export const {visibility} = errorMsg.actions;
+export const {visibility,message} = errorMsg.actions;
 export default errorMsg.reducer

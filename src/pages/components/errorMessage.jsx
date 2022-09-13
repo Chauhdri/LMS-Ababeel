@@ -5,7 +5,7 @@ import {  Slide, DialogActions, DialogTitle, DialogContent, DialogContentText, D
 import DoneAllSharpIcon from '@mui/icons-material/DoneAllSharp';
 import { useSelector,useDispatch } from "react-redux";
 
-import { visibility } from "./reduxSlices";
+import { visibility,message } from "./reduxSlices";
 
 
 const Transition = React.forwardRef(function Transition(props, ref) { return <Slide direction="up" ref={ref} {...props} />; });
@@ -14,6 +14,7 @@ export function ErrorMsg(props) {
 
     const [detailToggle, setDetailToggle] = React.useState(true); // to toggle dialog box
     const visi=useSelector(state=>state.errVisible.visibility);
+    const msg=useSelector(state=>state.errVisible.message)
     console.log(visi)
     const space = (n) => String.fromCharCode(160).repeat(n);
     const dispatch=useDispatch()
@@ -28,12 +29,11 @@ export function ErrorMsg(props) {
                 aria-describedby="alert-dialog-cards-description"
                 
             >
-                <DialogTitle align="center" ><u>{`ERROR`}</u></DialogTitle>
-                <DialogContent>
-                    <DialogContentText id="Teacher">
-                        {`Message: ${space(2)} ${props.message}`}
+                <DialogTitle align="center" sx={{letterSpacing:"0.2rem"}}><u>{`ERROR DETAIL`}</u></DialogTitle>
+                <DialogContent >
+                    <DialogContentText id="Teacher" sx={{color:"rgba(255,0,0,0.8)"}}>
+                        {`Message: ${space(4)} ${msg}`}
                     </DialogContentText>
-                    
                 </DialogContent>
                 <DialogActions>
                     <Button fullWidth variant="outlined" startIcon={<DoneAllSharpIcon />} color="info" onClick={() => dispatch(visibility())}>Acknowledged</Button>

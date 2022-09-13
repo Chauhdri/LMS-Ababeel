@@ -29,7 +29,7 @@ export default function Ababeel() {
                 {Nav(w)}
             </Grid> */}
             <LogoAndName />
-            {/* <LoginSection/> */}
+            <LoginSection/>
             <FloatingButtons data="0" bottom="2em" />
             <FloatingButtons data="1" bottom="6em" />
 

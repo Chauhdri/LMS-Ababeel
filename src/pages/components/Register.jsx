@@ -14,7 +14,7 @@ import React, { useEffect, useState } from "react";
 import PasswordChecklist from "react-password-checklist";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, useNavigate } from "react-router-dom";
-import { auth, registerWithEmailAndPassword, signInWithGoogle, } from "./firebaseServer";
+import { auth, GoogleLogin, registerWithEmailAndPassword, signInWithGoogle, } from "./firebaseServer";
 import CheckCircleSharpIcon from '@mui/icons-material/CheckCircleSharp';
 //import "./Register.css";
 
@@ -25,6 +25,7 @@ function Register() {
   const [name, setName] = useState("");
   const [user, loading, error] = useAuthState(auth);
   const navigate = useNavigate();
+  const ghandler =GoogleLogin();
   let [h, setH] = useState(window.innerHeight)
   window.addEventListener('resize', function (event) { setH(window.innerHeight); }, true);
   const logo = [
@@ -128,15 +129,16 @@ function Register() {
           </Grid>
 
           {/* Retype Password */}
-          {/* <Grid item
+          
+          <Grid item
             sx={{ margin: 0, width: "100%", marginBottom: "1em" }} >
 
             <Input required type="password" variant="standard" name="retypedpassword" placeholder="Retype Password" id="password" value={rePassword} onChange={(e) => setRePassword(e.target.value)}
               sx={{ margin: 0, width: "100%", }} />
 
-          </Grid> */}
+          </Grid>
 
-          {/* <Grid item
+          <Grid item
             sx={{ margin: 0, width: "100%", marginBottom: "1em" }} >
 
             <PasswordChecklist rules={["minLength", "number", "letter", "match", "nonEmpty"]}
@@ -148,7 +150,7 @@ function Register() {
                 match: "Password and Retype-password must be same."
               }}
             />
-          </Grid> */}
+          </Grid>
 
           <Grid item
             sx={{ margin: 0, width: "100%", }} >
@@ -163,7 +165,7 @@ function Register() {
           {/* Register with Google */}
           <Grid item
             sx={{ margin: 0, width: "100%", }} >
-            <Button variant='contained' onClick={() => signInWithGoogle()}
+            <Button variant='contained' onClick={() => ghandler()}
               sx={{ margin: 0, width: "100%", }} >
               Register with Google
             </Button>
