@@ -6,7 +6,7 @@ import { getFirestore, query, getDocs, collection, where, addDoc, } from "fireba
 import React from "react";
 import ReactDOM from 'react-dom';
 import { useDispatch } from "react-redux";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Loading } from "./loading";
 import { visibility, message } from "./reduxSlices";
 
@@ -30,7 +30,6 @@ const firebaseConfig = {
   measurementId: "G-2J1C4PW4QB"
 };
 
-// const navigate = useNavigate();
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
@@ -67,7 +66,7 @@ const sendPasswordReset = async (email) => {
 
 const logout = () => {
   // Navigate("./");
-  signOut(auth);
+  signOut(auth)
 
 };
 

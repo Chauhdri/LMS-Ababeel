@@ -13,9 +13,14 @@ import RadioGroup from '@mui/joy/RadioGroup';
 import React, { useEffect, useState } from "react";
 import PasswordChecklist from "react-password-checklist";
 import { useAuthState } from "react-firebase-hooks/auth";
+import {createUserWithEmailAndPassword} from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
-import { auth, GoogleLogin, registerWithEmailAndPassword, signInWithGoogle, } from "./firebaseServer";
+import { auth, GoogleLogin,db} from "./firebaseServer";
+import { getFirestore, query, getDocs, collection, where, addDoc, } from "firebase/firestore";
 import CheckCircleSharpIcon from '@mui/icons-material/CheckCircleSharp';
+import { useDispatch } from 'react-redux';
+import {visibility,message} from "./reduxSlices";
+import {ErrorMsg} from "./errorMessage"
 //import "./Register.css";
 
 function Register() {
@@ -25,6 +30,7 @@ function Register() {
   const [name, setName] = useState("");
   const [user, loading, error] = useAuthState(auth);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const ghandler =GoogleLogin();
   let [h, setH] = useState(window.innerHeight)
   window.addEventListener('resize', function (event) { setH(window.innerHeight); }, true);
@@ -34,10 +40,25 @@ function Register() {
     "./icons/student.png"
   ]
 
-  const register = () => {
-    if (!name) alert("Please enter name");
-    registerWithEmailAndPassword(name, email, password);
-  };
+  
+const registerWithEmailAndPassword = async (name, email, password) => {
+ 
+  try {
+    const res = await createUserWithEmailAndPassword(auth, email, password);
+    const user = res.user;
+    await addDoc(collection(db, "users"), {
+      uid: user.uid,
+      name,
+      authProvider: "local",
+      email,
+    });
+  } catch (err) { 
+    dispatch(message(err.message.slice(err.message.indexOf("/") + 1, err.message.indexOf(")"))));
+    dispatch(visibility());
+  }
+};
+
+
   useEffect(() => {
     if (loading) return;
     if (user) navigate("/student");
@@ -52,6 +73,7 @@ function Register() {
     <Grid container direction="column"
       sx={{ height: h, alignItems: "center", justifyContent: "center", }}>
 
+        <ErrorMsg />
       <Card
         sx={{ height: "auto", width: "20em", padding: 2, backgroundColor: "rgba(12,9,10,0.1)", }}>
 
@@ -133,7 +155,7 @@ function Register() {
           <Grid item
             sx={{ margin: 0, width: "100%", marginBottom: "1em" }} >
 
-            <Input required type="password" variant="standard" name="retypedpassword" placeholder="Retype Password" id="password" value={rePassword} onChange={(e) => setRePassword(e.target.value)}
+            <Input required type="password" variant="standard" name="retypedpassword" placeholder="Retype Password" id="repassword" value={rePassword} onChange={(e) => setRePassword(e.target.value)}
               sx={{ margin: 0, width: "100%", }} />
 
           </Grid>
@@ -142,11 +164,11 @@ function Register() {
             sx={{ margin: 0, width: "100%", marginBottom: "1em" }} >
 
             <PasswordChecklist rules={["minLength", "number", "letter", "match", "nonEmpty"]}
-              minLength={8} value={password} valueAgain={rePassword} onChange={isValid => { isValid && alert("Good.") }}
+              minLength={8} value={password} valueAgain={rePassword}
               messages={{
                 minLength: "Minimum 8 characters are required.",
-                number: "atleast include one number.",
-                letter: "atleast include one letter.",
+                number: "Atleast include one number.",
+                letter: "Atleast include one letter.",
                 match: "Password and Retype-password must be same."
               }}
             />
@@ -154,34 +176,37 @@ function Register() {
 
           <Grid item
             sx={{ margin: 0, width: "100%", }} >
-            <Button value="Login" variant='contained' onClick={() => register()}
+            <Button value="Login" variant='contained' onClick={() => registerWithEmailAndPassword(name, email, password)}
               sx={{ margin: 0, width: "100%", }}>
-              Register
+              Sign up
             </Button>
           </Grid>
 
-
+          <Grid item
+            sx={{ margin: 0, width: "100%", textAlign: "center" }} >
+            <Divider> </Divider>
+          </Grid>
 
           {/* Register with Google */}
           <Grid item
             sx={{ margin: 0, width: "100%", }} >
-            <Button variant='contained' onClick={() => ghandler()}
+            <Button variant='outlined' onClick={() => ghandler()}
               sx={{ margin: 0, width: "100%", }} >
-              Register with Google
+              Login with Google
             </Button>
           </Grid>
 
-          <Grid item
+          {/* <Grid item
             sx={{ margin: 0, width: "100%", textAlign: "center" }} >
-            <Divider>OR</Divider>
-          </Grid>
+            <Divider>Already have an Account? </Divider>
+          </Grid> */}
 
           <Grid item
             sx={{ margin: 0, width: "100%", textAlign: "center" }} >
 
-            <Button variant='contained' color='secondary' href="login"
+            <Button variant='outlined' color='secondary' href="login"
               sx={{ margin: 0, width: "100%", }}>
-              Login
+              Login with Email
             </Button>
 
           </Grid>
