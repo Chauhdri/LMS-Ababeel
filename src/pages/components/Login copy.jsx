@@ -36,7 +36,7 @@ export function LoginSection() {
   const [password, setPassword] = useState("");
   const [user, loading, error] = useAuthState(auth);
   const [expanded, setExpanded] = React.useState(false);
-  const logo = ["icons/professor.png", "icons/parents.png", "icons/student.png"];
+  const logo = ["/icons/professor.png", "/icons/parents.png", "/icons/student.png"];
   const dashboards = ["/teacher", "/parent", "/student"]                                                // dashboard's path to redirect on successful login.
   const q = document.getElementsByName("loggingBody");                                                  //to detect which role is checked i.e teacher student or parent.
   const navigate = useNavigate();
@@ -117,12 +117,7 @@ export function LoginSection() {
                 sx={{ margin: 0, padding: 0, width: "100%", }}>
                 {/* Radio Buttons */}
 
-                <RadioGroup defaultValue="Teacher" overlay name="loggingBody" column
-                  sx={{
-                    gap: 2, margin: "auto",
-                    [`& .${radioClasses.checked}`]: { [`& .${radioClasses.action}`]: {}, },
-                    [`& .${radioClasses.radio}`]: { display: 'contents', '& > svg': { position: 'absolute', top: '-0.1em', right: '-0.2em', }, },
-                  }}>
+                
                    {/* <InputLabel id="role">Role</InputLabel> */}
 
                   <Select
@@ -133,25 +128,30 @@ export function LoginSection() {
                     size="small"
                     label="Role"
                     onChange={handleChange}
-                    sx={{  margin: 1, padding: 1, border: 0, height:"inherit",width:"inherit"}}
+                    // sx={{  margin: 1, padding: 1, border: 0, height:"inherit",width:"inherit"}}
                   >
-                    
+                    <RadioGroup defaultValue="Teacher" overlay name="loggingBody" column
+                  sx={{
+                    gap: 2, margin: "auto",
+                    [`& .${radioClasses.checked}`]: { [`& .${radioClasses.action}`]: {}, },
+                    [`& .${radioClasses.radio}`]: { display: 'contents', '& > svg': { position: 'absolute', top: '-0.1em', right: '-0.2em', }, },
+                  }}>
                     {['Teacher', 'Parent', 'Student'].map((value, key) => (
-                      <MenuItem value={value}  >
+                      // <MenuItem value={value}  >
 
                         <Sheet key={value}
                           sx={{ minWidth: '3.5em', width: "auto", borderRadius: '1px', }}>
-                          {console.log(window.location + logo[key])}
-                          <Avatar src={logo[key]} sx={{ height: "auto", width: "1.5em", marginLeft: "0.5em" }} />
+                          
+                          <Avatar src={window.location+logo[key]} sx={{ height: "auto", width: "1.5em", marginLeft: "0.5em" }} />
                           <Radio id={value} value={value} checkedIcon={<CheckCircleSharpIcon color='primary' />} />
                           <FormLabel htmlFor={value} sx={{ color: "black", fontSize: "0.9em", textAlign: "center" }} >{value}</FormLabel>
 
 
-                        </Sheet>
-                      </MenuItem>
+                         </Sheet>
+                      // </MenuItem>
                     ))}
-                  </Select>
                 </RadioGroup>
+                  </Select>
 
               </FormControl>
             </CardActions>
@@ -194,13 +194,13 @@ export function LoginSection() {
               ?
               (<Button fullWidth
                 value="Login"
-                variant='text'
+                variant='contained'
                 onClick={logout}>
                 LOGOUT
               </Button>)
               : <Button fullWidth
                 value="Login"
-                variant='text'
+                variant='contained'
                 onClick={() => logInWithEmailAndPassword(email, password)}
               >Login
               </Button>
